@@ -15,6 +15,8 @@ return{
     "romgrk/barbar.nvim",
     "nvim-tree/nvim-web-devicons",
     "neovide/neovide",
+    "tjdevries/colorbuddy.nvim",
+    "tjdevries/gruvbuddy.nvim",
 
     {
     'glacambre/firenvim',
@@ -27,9 +29,8 @@ return{
         vim.fn["firenvim#install"](0)
     end
 },
-    "tjdevries/express_line.nvim"
+    "tjdevries/express_line.nvim",
+    "nvim-lua/plenary.nvim"
 
-    
-    
 
 }

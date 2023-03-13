@@ -8,6 +8,10 @@ if neodev then
   }
 end
 
+local semantic = vim.F.npcall(require, "nvim-semantic-tokens")
+
+local is_linux = vim.fn.has "Linux" == 1
+
 local lspconfig = vim.F.npcall(require, "lspconfig")
 if not lspconfig then
   return
@@ -18,8 +22,6 @@ local nmap = require("hjkl.keymap").nmap
 local autocmd = require("hjkl.auto").autocmd
 local autocmd_clear = vim.api.nvim_clear_autocmds
 
-sumneko_root_path ="/home/hjkl/.local/share/lua-language-server"
-sumneko_binary = "/home/hjkl/.local/share/lua-language-server/bin/lua-language-server"
 
 
 local lspconfig_util = require "lspconfig.util"
@@ -53,6 +55,9 @@ local buf_inoremap = function(opts)
 end
 
 local custom_attach = function(client, bufnr)
+    if client.nvim == "copilot" then
+        return
+    end
 
   local filetype = vim.api.nvim_buf_get_option(0, "filetype")
 
@@ -70,7 +75,7 @@ local custom_attach = function(client, bufnr)
   -- telescope_mapper("gr", "lsp_references", nil, true)
   -- telescope_mapper("gI", "lsp_implementations", nil, true)
   -- telescope_mapper("<space>wd", "lsp_document_symbols", { ignore_filename = true }, true)
-  -- telescope_mapper("<space>ww", "lsp_dynamic_workspace_symbols", { ignore_filename = true }, true)
+  -- telescope_mapRestartper("<space>ww", "lsp_dynamic_workspace_symbols", { ignore_filename = true }, true)
 
 
   -- Set autocommands conditional on server_capabilities
@@ -95,7 +100,6 @@ local custom_attach = function(client, bufnr)
   end
 
   -- Attach any filetype specific options to the client
-  filetype_attach[filetype](client)
 end
 
 local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -148,9 +152,6 @@ local servers = {
 
 
   require("mason").setup()
-  require("mason-lspconfig").setup{
-      ensure_installed = { "lua-language-server" },
-  }
 
   local setup_server = function(server, config)
   if not config then
@@ -173,6 +174,62 @@ local servers = {
   lspconfig[server].setup(config)
 end
 
+
+
+if is_linux then
+
+  Lua_ls_cmd = {
+    vim.fn.stdpath "data" .. "/lsp_server/lua-language-server/bin/lua-language-server",
+  }
+
+
+  setup_server("lua_ls", {
+    settings = {
+      Lua = {
+        diagnostics = {
+          globals = {
+            -- vim
+            "vim",
+
+            -- Busted
+            "describe",
+            "it",
+            "before_each",
+            "after_each",
+            "teardown",
+            "pending",
+            "clear",
+
+            -- Colorbuddy
+            "Color",
+            "c",
+            "Group",
+            "g",
+            "s",
+
+            -- Custom
+            "RELOAD",
+          },
+        },
+
+        workspace = {
+          -- Make the server aware of Neovim runtime files
+          library = vim.api.nvim_get_runtime_file("", true),
+        },
+      },
+    },
+  })
+else
+  -- Load lua configuration from nlua.
+  require("lspconfig").sumneko_lua.setup {
+    on_init = custom_init,
+    on_attach = custom_attach,
+    capabilities = updated_capabilities,
+    settings = {
+      Lua = { workspace = { checkThirdParty = false }, semantic = { enable = false } },
+    },
+  }
+end
 
 
 for server, config in pairs(servers) do
