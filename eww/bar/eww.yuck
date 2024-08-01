@@ -1,0 +1,101 @@
+(include "workspaces.yuck")
+(include "powermenu.yuck")
+(include "time.yuck")
+(include "music.yuck")
+
+
+(defvar eww "eww -c ~/.config/eww/bar")
+(defvar date_reveal false)
+(defvar right_class "win_normal")
+(defvar left_class "win_normal")
+(defvar center_class "win_normal")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar music_reveal false)
+(defvar cover "images/music.png")
+(defvar temperature_reveal false)
+(defvar media_bar_class "bar_normal")
+(defvar media_bar_is_active false)
+(defvar media_bar_class_popup "bar_normal_popup")
+(defvar media_bar_is_active_popup false)
+(defvar media_status "")
+(defvar artist "No artist")
+(defvar artist_parsed "No artist") 
+(defvar title "No title") 
+(defvar title_parsed "No title") 
+(defvar length 100)
+(defvar position 0) 
+(deflisten launch3 "scripts/media_info")
+(deflisten launch1 "scripts/workspaces")
+
+
+(defwindow bar_left
+           :monitor 0
+           :geometry (geometry :x "20px"
+                               :y "20px"
+                               :width "15%"
+                               :height "50px"
+                               :anchor "top left")
+           :stacking "fg"
+           :reserve (struts :distance "70px" :side "top")
+           :windowtype "dock"
+           :exclusive true
+           :wm-ignore false
+  (widgets_left))
+
+(defwindow bar_center
+           :monitor 0
+           :geometry (geometry :x "20px"
+                               :y "20px"
+                               :width "15%"
+                               :height "50px"
+                               :anchor "top center")
+           :stacking "fg"
+           :reserve (struts :distance "70px" :side "top")
+           :windowtype "dock"
+           :exclusive true
+           :wm-ignore false
+  (widgets_left))
+(defwindow bar_right
+           :monitor 1
+           :geometry (geometry :x "20px"
+                               :y "20px"
+                               :width "15%"
+                               :height "50px"
+                               :anchor "top right")
+           :stacking "fg"
+           :reserve (struts :distance "70px" :side "top")
+           :windowtype "dock"
+           :exclusive true
+           :wm-ignore false
+  (widgets_right))
+
+
+(defwidget widgets_left []
+  (eventbox
+    :onhover "${eww} update left_class=\"win_hovered\""
+    :onhoverlost "${eww} update left_class=\"win_normal\""
+    (box 
+      :spacing 0
+      :space-evenly "false"
+      :class left_class
+      :orientation "h"
+      :valign "fill"
+      :hexpand "false"
+      (workspace)
+      (music))))
+
+;; Right widgets
+(defwidget widgets_right []
+  (eventbox
+    :onhover "${eww} update right_class=\"win_hovered\""
+    :onhoverlost "${eww} update right_class=\"win_normal\""
+    (box 
+      :spacing 0
+      :space-evenly "false"
+      :class right_class
+      :orientation "h"
+      :valign "fill"
+      :hexpand "false"
+      (time))))
+

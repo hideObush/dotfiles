@@ -1,0 +1,5 @@
+#!/bin/sh
+eww="eww -c $HOME/.config/eww/bar"
+
+$eww close music || (\
+    $eww open music ) 

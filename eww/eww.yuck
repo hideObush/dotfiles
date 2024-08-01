@@ -1,0 +1,73 @@
+(defvar color0 "#0E1F2F")
+(defvar color1 "#E94546")
+(defvar color2 "#B2856C")
+(defvar color3 "#F1A277")
+(defvar color4 "#027A8D")
+(defvar color5 "#DE5952")
+(defvar color6 "#7fcfec")
+(defvar color7 "#F1966F")
+(defvar color8 "#193855")
+(defvar color9 "#ff4647")
+(defvar color10 "#f9a779")
+(defvar color11 "#ffcb83")
+(defvar color12 "#019fb8")
+(defvar color13 "#ff6156")
+(defvar color14 "#8dffff")
+(defvar color15 "#ffc994")
+(defvar eww "eww -c $HOME/.config/eww")
+(defvar left_class "win_normal")
+
+(deflisten launch1 "scripts/workspaces")
+
+; (defvar wp1 "●")
+(defvar wp1 "1")
+(defvar wp2 "2")
+(defvar wp3 "3")
+(defvar wp4 "4")
+(defvar wp5 "5")
+(defvar workspace_num "5")
+
+(defwindow example
+           :monitor 1
+           :geometry (geometry :x "20px"
+                               :y "20px"
+                               :width "455px"
+                               :height "30px"
+                               :anchor "top center")
+           :stacking "fg"
+           :reserve (struts :distance "70px" :side "top")
+           :windowtype "dock"
+           :exclusive true
+           :wm-ignore false
+  (workspaces))
+
+; (defwidget widgets_left []
+  ; (eventbox
+  ;   :onhover "${eww} update left_class=\"win_hovered\""
+  ;   :onhoverlost "${eww} update left_class=\"win_normal\""
+    ; (box 
+    ;   :spacing 0
+    ;   :space-evenly "false"
+      ; :class left_class
+      ; :orientation "h"
+      ; :valign "fill"
+      ; :hexpand "false"
+      ; (workspaces)))
+(defwidget workspaces []
+  (eventbox
+    (box :class "module" :space-evenly "false" :orientation "h" :spacing "3"
+      (button :class "workspace_btn" :onclick "hyprctl dispatch workspace 1"
+        (label :text " " :class "workspace_label"))
+      (button :class "workspace_btn" :onclick "hyprctl dispatch workspace 2"
+        (label :text " " :class "workspace_label"))
+      (button :class "workspace_btn" :onclick "hyprctl dispatch workspace 3"
+        (label :text " " :class "workspace_label"))
+      (button :class "workspace_btn" :onclick "hyprctl dispatch workspace 4"
+        (label :text " " :class "workspace_label"))
+      (button :class "workspace_btn" :onclick "hyprctl dispatch workspace 5"
+        (label :text "󱋱 " :class "workspace_label"))
+      (button :class "workspace_btn" :onclick "hyprctl dispatch workspace 6"
+        (label :text "󰙯 " :class "workspace_label"))
+      (button :class "workspace_btn" :onclick "hyprctl dispatch workspace 7"
+        (label :text " " :class "workspace_label")))))
+              

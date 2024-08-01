@@ -1,0 +1,62 @@
+@import "colors.scss"
+* {
+  all: unset; //Unsets everything so ymargin: 0;
+    padding: 0;
+    font-family: "JetBrains Mono Nerd Font";
+    font-weight: 700;
+    font-size: 14px;
+    color: #e0def4;
+}
+.module {
+    background: #232136; 
+    border-radius: 10px; 
+    border: 2px solid #eb6f92;
+    margin-right: 8px;
+    padding: 0 15px;
+}
+// .win_normal {
+//     background-image: url("images/background.png");
+//     background-color: $color0;
+//     border: 5px solid $color9;
+//     border-radius: 40px;
+// }
+//
+// .win_hovered {
+//     background-image: url("images/background.png");
+//     background-color: $color8;
+//     border: 5px solid $color9;
+//     border-radius: 40px;
+// }
+//Global Styles
+// .bar_left {
+//   background-color: #3a3a3a;
+//   color: #b0b4bc;
+//   padding: 10px;
+// }
+
+// Styles on classes (see eww.yuck for more information)
+
+// .sidestuff slider {
+//   all: unset;
+//   color: #ffd5cd;
+// }
+.bar {
+    background: transparent;
+}
+.workspace_label {
+   color: #eb6f92; 
+   font-size: 16px;
+ }
+
+.workspace_btn {
+    background: transparent;
+    padding: 0 8px 0px 14px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    outline: 0px ;
+}
+
+.workspace_btn:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+}

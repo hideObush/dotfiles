@@ -1,0 +1,19 @@
+[{
+    "id": 1,
+    "name": "1",
+    "monitor": "DVI-D-1",
+    "monitorID": 0,
+    "windows": 3,
+    "hasfullscreen": false,
+    "lastwindow": "0x5d8a834a3670",
+    "lastwindowtitle": "[R] seq 함수 (숫자 연속으로 나열하기) — Mozilla Firefox"
+},{
+    "id": 2,
+    "name": "2",
+    "monitor": "HDMI-A-1",
+    "monitorID": 1,
+    "windows": 2,
+    "hasfullscreen": false,
+    "lastwindow": "0x5d8a8a41f3f0",
+    "lastwindowtitle": "v test ~/.c/e/scripts"
+}]
