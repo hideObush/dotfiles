@@ -1,0 +1,103 @@
+(deflisten  window      `scripts/hyprland window`)
+(deflisten  workspaces  `scripts/hyprland workspaces`)
+
+
+(defwindow bar
+    :monitor 0
+    :exclusive true
+    :stacking "fg"
+    :focusable false
+    :geometry (geometry :width "1%"
+                        :height "100%"
+                        :anchor "center left")(bar))
+(defwidget panel_workspaces [orientation] (box :class "button-bin"
+    (eventbox :class "button workspaces"
+        (box
+            :space-evenly false
+            :orientation orientation
+            (for workspace in {workspaces.workspaces}
+                (button
+                    :class "workspace-btn ${workspace.id == workspaces.active ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+                    :onclick "hyprctl dispatch workspace ${workspace.id}"
+                    :valign "center"
+                    (label :class "icon" :text {workspace.windows > 0 ? "${workspace.id == workspaces.active ? "" : ""}" : ""})
+                )
+            )
+        )
+    )
+))
+
+; (defwidget panel_window [angle] (eventbox :class "button-bin"
+;     (button :class "button window" 
+;         (label
+;             :visible {window != "null" ? true : false}
+;             :text {window}
+;             :angle angle)
+;     )
+; ))
+
+; (defwidget panel_separator [orientation dots visible] (box
+;     :orientation orientation
+;     :class "separator"
+;     :space-evenly false
+;     :visible visible
+;     (for dot in dots
+;         (box :class "dot" :halign "center" :hexpand true :valign "center"))))
+;
+; (defwidget controls_slider [control reveal value onchange icon orientation transition] (eventbox
+;     :onscroll "${EWW_CONFIG_DIR}/scripts/${control} {}"
+;     :onhover "${EWW_CMD} update ${control}_reveal=true"
+;     :onhoverlost "${EWW_CMD} update ${control}_reveal=false"
+;     (box
+;         :space-evenly false
+;         :orientation orientation
+;         (revealer
+;             :transition transition
+;             :duration "300ms"
+;             :reveal reveal
+;             :class "reveal"
+;             (eventbox :class "slider ${orientation}" (scale
+;                 :orientation orientation
+;                 :flipped {orientation == "v"}
+;                 :value value
+;                 :onchange onchange)))
+;         (label
+;             :class "${control} icon"
+;             :text icon)
+;     )
+; ))
+;
+; (defwidget controls_icon [control reveal value icon style angle orientation transition visible] (eventbox
+;     :visible visible
+;     :onhover "${EWW_CMD} update ${control}_reveal=true"
+;     :onhoverlost "${EWW_CMD} update ${control}_reveal=false"
+;     (box
+;         :space-evenly false
+;         :orientation orientation
+;         (revealer
+;             :transition transition
+;             :duration "300ms"
+;             :reveal reveal
+;             :class "reveal"
+;             (label
+;                 :class "${style} ${control}"
+;                 :angle angle
+;                 :text value)
+;         )
+;         (label
+;             :class "${style} ${control} icon"
+;             :text icon)
+;     )
+; ))
+
+(defwidget bar [] (box
+                    :orientation "v"
+                    :class "vpanel ${workspaces.active_empty ? "floating" : ""}"
+                    (box
+                      :class "leftBar"
+                      :space-evenly false
+                      :valign "start"
+                      :orientation "v"
+                      (panel_workspaces :orientation "v")
+        )
+    ))
