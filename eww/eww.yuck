@@ -1,73 +1,82 @@
-(defvar color0 "#0E1F2F")
-(defvar color1 "#E94546")
-(defvar color2 "#B2856C")
-(defvar color3 "#F1A277")
-(defvar color4 "#027A8D")
-(defvar color5 "#DE5952")
-(defvar color6 "#7fcfec")
-(defvar color7 "#F1966F")
-(defvar color8 "#193855")
-(defvar color9 "#ff4647")
-(defvar color10 "#f9a779")
-(defvar color11 "#ffcb83")
-(defvar color12 "#019fb8")
-(defvar color13 "#ff6156")
-(defvar color14 "#8dffff")
-(defvar color15 "#ffc994")
-(defvar eww "eww -c $HOME/.config/eww")
-(defvar left_class "win_normal")
+(defvar wallpaper "images/wallpaper.jpg")
+(defvar aespa-hot-all "images/aespa-hot-all.jpg")
+(defvar pexel "images/pexels1.jpg" )
 
-(deflisten launch1 "scripts/workspaces")
+(deflisten workspaces 'scripts/hyprland workspaces')
+; (deflisten workspaces :initial "(box (label :text \"󰄯  󰄰  󰄰  󰄰  󰄰\" ))"
+; 	`$HOME/.config/eww/scripts/workspaces.py`)
 
-; (defvar wp1 "●")
-(defvar wp1 "1")
-(defvar wp2 "2")
-(defvar wp3 "3")
-(defvar wp4 "4")
-(defvar wp5 "5")
-(defvar workspace_num "5")
+(defwindow bar
+	:monitor 1
+	:windowtype "dock"
+  :namespace "test"
+  :focusable "false"
+	:geometry (geometry 
+			:width "100%"
+			:height "4%"
+			:anchor "top center"
+			)
+	:exclusive true	
+   (sh))
+
+(defwidget sh []
+  (box :class "workspace_btn"
+       :orientation "h"
+       :width 10
+       :height 10
+    (label :text "eww search bar")
+    (input :class "workspace_btn"
+      :value "Search " :onaccept "xdg-open 'https://search.google.com/search?q={}'")
+    ))
+    
 
 (defwindow example
            :monitor 1
-           :geometry (geometry :x "20px"
-                               :y "20px"
-                               :width "455px"
-                               :height "30px"
-                               :anchor "top center")
-           :stacking "fg"
+           :geometry (geometry :x "00px"
+                               :y "00px"
+                               :width "100%"
+                               :height "100%"
+                               :anchor "center left")
+           :stacking "bg"
            :reserve (struts :distance "70px" :side "top")
            :windowtype "dock"
-           :exclusive true
+           :exclusive false
            :wm-ignore false
-  (workspaces))
+  (all)
+  )
 
-; (defwidget widgets_left []
-  ; (eventbox
-  ;   :onhover "${eww} update left_class=\"win_hovered\""
-  ;   :onhoverlost "${eww} update left_class=\"win_normal\""
-    ; (box 
-    ;   :spacing 0
-    ;   :space-evenly "false"
-      ; :class left_class
-      ; :orientation "h"
-      ; :valign "fill"
-      ; :hexpand "false"
-      ; (workspaces)))
-(defwidget workspaces []
-  (eventbox
-    (box :class "module" :space-evenly "false" :orientation "h" :spacing "3"
-      (button :class "workspace_btn" :onclick "hyprctl dispatch workspace 1"
-        (label :text " " :class "workspace_label"))
-      (button :class "workspace_btn" :onclick "hyprctl dispatch workspace 2"
-        (label :text " " :class "workspace_label"))
-      (button :class "workspace_btn" :onclick "hyprctl dispatch workspace 3"
-        (label :text " " :class "workspace_label"))
-      (button :class "workspace_btn" :onclick "hyprctl dispatch workspace 4"
-        (label :text " " :class "workspace_label"))
-      (button :class "workspace_btn" :onclick "hyprctl dispatch workspace 5"
-        (label :text "󱋱 " :class "workspace_label"))
-      (button :class "workspace_btn" :onclick "hyprctl dispatch workspace 6"
-        (label :text "󰙯 " :class "workspace_label"))
-      (button :class "workspace_btn" :onclick "hyprctl dispatch workspace 7"
-        (label :text " " :class "workspace_label")))))
-              
+(defwidget all []
+ (box :orientation "h"
+      :class "all"
+      :halign "center"
+   (leftground)
+   (rightground)
+   )
+
+
+  )
+
+(defwidget leftground []
+  (box :orientation "h"
+        :class "wallpaper"
+        (image
+          :image-width 800
+          :image-height 800
+          :tooltip "leftground"
+          :valign "start"
+          :halign "start"
+          :class "wallpaper"
+          :path pexel
+  )))
+
+(defwidget rightground []
+  (box :orientation "h"
+        :class "wallpaper"
+        (image
+          :image-width 800
+          :image-height 800
+          :valign "end"
+          :halign "end"
+        :class "wallpaper"
+       :path aespa-hot-all)
+  ))

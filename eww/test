@@ -1,0 +1,37 @@
+[{
+    "id": 1,
+    "name": "1",
+    "monitor": "DVI-D-1",
+    "monitorID": 0,
+    "windows": 2,
+    "hasfullscreen": false,
+    "lastwindow": "0x5fa0827fd360",
+    "lastwindowtitle": "eww logs ~"
+},{
+    "id": -98,
+    "name": "special:magic",
+    "monitor": "HDMI-A-1",
+    "monitorID": 1,
+    "windows": 2,
+    "hasfullscreen": false,
+    "lastwindow": "0x5fa0823d4700",
+    "lastwindowtitle": "~/.c/eww"
+},{
+    "id": 3,
+    "name": "3",
+    "monitor": "HDMI-A-1",
+    "monitorID": 1,
+    "windows": 1,
+    "hasfullscreen": false,
+    "lastwindow": "0x5fa0827e64d0",
+    "lastwindowtitle": "Mozilla Firefox"
+},{
+    "id": 2,
+    "name": "2",
+    "monitor": "HDMI-A-1",
+    "monitorID": 1,
+    "windows": 2,
+    "hasfullscreen": false,
+    "lastwindow": "0x5fa0823dfcb0",
+    "lastwindowtitle": "hyprctl workspaces - ~/.c/eww"
+}]

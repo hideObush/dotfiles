@@ -1,7 +1,7 @@
 (include "workspaces.yuck")
 (include "powermenu.yuck")
 (include "time.yuck")
-(include "music.yuck")
+; (include "music.yuck")
 
 
 (defvar eww "eww -c ~/.config/eww/bar")
@@ -82,8 +82,8 @@
       :orientation "h"
       :valign "fill"
       :hexpand "false"
-      (workspace)
-      (music))))
+      (workspace))))
+      ; (music))))
 
 ;; Right widgets
 (defwidget widgets_right []

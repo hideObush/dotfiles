@@ -1,31 +1,58 @@
-(deflisten  window      `scripts/hyprland window`)
-(deflisten  workspaces  `scripts/hyprland workspaces`)
+(deflisten window      "scripts/hyprland window")
+(deflisten workspaces :initial "[]"  "scripts/hyprland")
+(defvar focused  "hyprctl activeworkspace -j | jq .id")
 
 
 (defwindow bar
-    :monitor 0
+    :monitor 1
     :exclusive true
     :stacking "fg"
     :focusable false
-    :geometry (geometry :width "1%"
-                        :height "100%"
+    :geometry (geometry :width "2%"
+                        :height "2%"
                         :anchor "center left")(bar))
+
+(defwidget bar [] (box
+                    :orientation "v"
+                    :class "vpanel floating"
+                    (box
+                      :class "leftBar"
+                      :space-evenly false
+                      :valign "start"
+                      :orientation "v"
+                      (panel_workspaces :orientation "v")
+        )
+    ))
+
 (defwidget panel_workspaces [orientation] (box :class "button-bin"
     (eventbox :class "button workspaces"
         (box
             :space-evenly false
             :orientation orientation
-            (for workspace in {workspaces.workspaces}
-                (button
-                    :class "workspace-btn ${workspace.id == workspaces.active ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
-                    :onclick "hyprctl dispatch workspace ${workspace.id}"
-                    :valign "center"
-                    (label :class "icon" :text {workspace.windows > 0 ? "${workspace.id == workspaces.active ? "" : ""}" : ""})
-                )
-            )
-        )
-    )
-))
+          (for workspace in workspaces
+            (button 
+              :class "workspace-btn"
+              :onclick "hyprctl dispatch workspace ${workspace.id}"
+              (label :class "icon" :text "${workspace.id == focused ? "active" : ""}")))))))
+              
+; (defwidget panel_workspaces [orientation] (box :class "button-bin"
+;     (eventbox :class "button workspaces"
+;         (box
+;             :space-evenly false
+;             :orientation orientation
+;             (for workspace in {workspaces.workspaces}
+;                 (button
+                    ; :class "workspace-btn ${workspace.id == 1 ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+                    ; :class "workspace-btn empty"
+                    ; :onclick "hyprctl dispatch workspace 2"
+                    ; :valign "center"
+                    ; (label :class "icon" :text "1")
+                    ; (label :class "icon" :text {workspace.windows > 0 ? "${workspace.id == "1" ? "" : ""}" : ""})
+;                 )
+;             )
+;         )
+;     )
+; ))
 
 ; (defwidget panel_window [angle] (eventbox :class "button-bin"
 ;     (button :class "button window" 
@@ -90,14 +117,3 @@
 ;     )
 ; ))
 
-(defwidget bar [] (box
-                    :orientation "v"
-                    :class "vpanel ${workspaces.active_empty ? "floating" : ""}"
-                    (box
-                      :class "leftBar"
-                      :space-evenly false
-                      :valign "start"
-                      :orientation "v"
-                      (panel_workspaces :orientation "v")
-        )
-    ))

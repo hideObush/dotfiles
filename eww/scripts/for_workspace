@@ -1,0 +1,20 @@
+3 types
+
+if focused
+  'hyprctl activeworkspace' print monitor ID and windows
+
+not focused
+  'if id != not focused' print (not focused)
+
+if windows 0 but focuesd
+  how to know  'focused' hyprctl activeworkspace tell focused workspaces
+
+  "id" : integer -> focused id
+
+  if windows 0 not focused
+
+    if windows not 0   and focused
+
+      if windows not 0  not focused
+
+

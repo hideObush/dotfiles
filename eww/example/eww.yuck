@@ -1,0 +1,15 @@
+(defwindow example
+  :monitor 1
+  :exclusive true
+  :geometry (geometry :x "0%"
+                      :y "20px"
+                      :width "90%"
+                      :height "30px"
+                      :anchor "top center")
+  (greeter)
+  )
+
+(defwidget greeter []
+  (box :orientation "h" :class "web"
+    (input :value "Search" :onaccept "xdg-open 'https://search.google.com/search?q={}'")
+    (label :text "google" :class "feather" :halign "end")))
