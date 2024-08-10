@@ -1,0 +1,29 @@
+(defvar empty "❂")
+(defvar occupied "꩜")
+(defvar actived "✪")
+; ♚
+(defwidget bar [] (box
+                    :orientation "h"
+                    :class "vpanel floating"
+                    (box
+                      :class "leftBar"
+                      :spacing 5
+                      ; :space-evenly true
+                      :halign "start"
+                      :orientation "h"
+                      (panel_workspaces :orientation "h")
+        )
+    ))
+
+(defwidget panel_workspaces [orientation] (box :class "button-bin"
+    (eventbox :class "button workspaces"
+        (box
+            :space-evenly false
+            :orientation orientation
+          (for workspace in workspaces
+            (button 
+              :class "workspace-btn"
+              :onclick "hyprctl dispatch workspace ${workspace.id}"
+              :valign "center"
+              (label :class "icon" :text {workspace.windows > 0 ? "${workspace.id == workspace.active ? "${actived}" : "${occupied}"}" : "${workspace.id == workspace.active ? "${actived}" : "${empty}" }"})
+              ))))))

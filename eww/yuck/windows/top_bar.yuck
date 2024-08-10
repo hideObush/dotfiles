@@ -1,0 +1,14 @@
+
+(defwindow bar
+    :monitor 1
+    :geometry (geometry :width "3%"
+                        :height "2%"
+                        :width "5%"
+                        :height "40px"
+                        :anchor "top center")
+    :exclusive true
+    :stacking "fg"
+    :focusable false
+    :windowtype "dock"
+    :wm-ignore false
+    (bar))

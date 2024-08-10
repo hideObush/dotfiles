@@ -1,0 +1,26 @@
+(defwidget bar [] (box
+                    :orientation "h"
+                    :class "workspace"
+                    (box
+                      :class "workspace"
+                      :space-evenly true
+                      :halign "start"
+                      :orientation "h"
+                      (panel_workspaces)
+        )
+    ))
+
+(defwidget panel_workspaces []
+    (eventbox :class "workspaces"
+        (box
+            :space-evenly true
+            :orientation "h"
+            :halign "start"
+          (label :text "${workspaces}" :visible false)
+          (for workspace in workspaces
+            (button 
+              :class "${workspace.id == workspace.active ? "button-17" : "workspace"}"
+              :onclick "hyprctl dispatch workspace ${workspace.id}"
+              ; :style "font-size: 13pt"
+              (label :class "icon" :text "${workspace.id}"
+              ))))))
